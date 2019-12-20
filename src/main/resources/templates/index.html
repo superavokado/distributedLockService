@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MainPage</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<div id="exampleFilesForm">
+    <li v-for="exampleFile in exampleFileNames">
+        <p> {{ exampleFileName }} </p>
+        <button v-bind:id="exampleFile" v-on:click="openFile(exampleFileName)">
+            <span>Открыть</span>
+        </button>
+        <h1> {{ title }} </h1>
+        <h3> {{ text }} </h3>
+    </li>
+
+
+</div>
+<script>
+    var exampleFilesForm = new Vue({
+        el: '#exampleFilesForm',
+        data: {
+            exampleFileNames: [],
+            currentFile: '',
+            desiredFile: '',
+            title: '',
+            text: ''
+        },
+        methods: {
+            openFile: async function (exampleFileName) {
+                let desiredFile = exampleFileName;
+                let currentFile = this.currentFile;
+                let resp = await fetch(window.location.origin + "/openFile", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({currentFile, desiredFile}),
+                });
+
+                let response = await resp.json();
+            }
+        },
+        mounted: async function () {
+            let resp = await fetch(window.location.origin + "/exampleFileNames");
+            this.exampleFileNames = await resp.json();
+        }
+    });
+</script>
+</html>
