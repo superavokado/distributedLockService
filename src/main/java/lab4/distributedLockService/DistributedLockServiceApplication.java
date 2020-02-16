@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DistributedLockServiceApplication {
 
-	static HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
 	public static void main(String[] args) {
 		SpringApplication.run(DistributedLockServiceApplication.class, args);
 	}

@@ -1,11 +1,14 @@
 package lab4.distributedLockService;
 
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
 
-public class ExampleFile {
+import java.io.Serializable;
+
+public class ExampleFile implements Serializable {
     String title;
     String someText;
-    private static ILock lock = DistributedLockServiceApplication.hazelcastInstance.getLock("Lock");
 
     public ExampleFile(String title, String someText) {
         this.title = title;

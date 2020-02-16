@@ -16,6 +16,13 @@ public class Response {
         this.availability = availability;
     }
 
+    public Response(String title, String text, String status, Boolean availability) {
+        this.title = title;
+        this.text = text;
+        this.status = status;
+        this.availability = availability;
+    }
+
     public String getTitle() {
         return title;
     }
